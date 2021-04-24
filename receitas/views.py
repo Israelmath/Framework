@@ -4,7 +4,17 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'index.html')
+    receitas = {
+        1: 'Lasanha',
+        2: 'Feijoada',
+        3: 'Panqueca',
+        4: 'Receita'
+    }
+
+    dados = {
+        'nomeReceitas': receitas
+    }
+    return render(request, 'index.html', context=dados)
 
 def receita(request):
     return render(request, 'receita.html')
