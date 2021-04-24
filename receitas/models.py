@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class Receita(models.Model):
-    nomereceita = models.CharField(max_length=40)
+    nomeReceita = models.CharField(max_length=40)
     ingredientes = models.TextField()
     modoPreparo = models.TextField()
     tempoPreparo = models.IntegerField()
