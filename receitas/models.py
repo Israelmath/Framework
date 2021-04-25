@@ -1,8 +1,10 @@
 from django.db import models
 from datetime import datetime
+from pessoas.models import Pessoa
 
 
 class Receita(models.Model):
+    autor = models.ForeignKey(Pessoa, models.CASCADE)
     nomeReceita = models.CharField(max_length=40)
     ingredientes = models.TextField()
     modoPreparo = models.TextField()
