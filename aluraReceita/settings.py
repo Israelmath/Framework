@@ -57,7 +57,7 @@ ROOT_URLCONF = 'aluraReceita.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'receitas/template')],
+        'DIRS': [os.path.join(BASE_DIR, 'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
