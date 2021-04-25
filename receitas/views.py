@@ -19,3 +19,6 @@ def receita(request, receita_id):
         'receita': receita
     }
     return render(request, 'receita.html', receitaAExibir)
+
+def buscar(request):
+    return render(request, 'buscar.html')
