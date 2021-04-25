@@ -133,3 +133,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Caminho para as imagens do projeto
+MEDIA_ROOT = os.path.join(BASE_DIR, 'thumbnails')
+MEDIA_URL = '/thumbnails/'

@@ -12,6 +12,7 @@ class Receita(models.Model):
     rendimento = models.CharField(max_length=40)
     categoria = models.CharField(max_length=30)
     publicada = models.BooleanField(default=False)
+    img = models.ImageField(upload_to='thumbnails/%d/%m/%Y', blank=True)
     dataCadastro = models.DateTimeField(default=datetime.now(), blank=True)
 
     def __str__(self):
