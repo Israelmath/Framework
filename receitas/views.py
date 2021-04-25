@@ -21,4 +21,17 @@ def receita(request, receita_id):
     return render(request, 'receita.html', receitaAExibir)
 
 def buscar(request):
-    return render(request, 'buscar.html')
+    listaReceitas = Receita.objects.order_by('-dataCadastro').filter(publicada=True)
+
+    if 'buscar' in request.GET:
+        nomeABuscar = request.GET['buscar']
+        if buscar:
+            listaReceitas = listaReceitas.filter(nomeReceita__icontains=nomeABuscar)
+
+    dados = {
+        'receitas': listaReceitas
+    }
+    if len(dados) == 0:
+        index(request)
+    else:
+        return render(request, 'buscar.html', context=dados)
