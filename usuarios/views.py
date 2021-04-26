@@ -59,7 +59,13 @@ def login(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
-        return render(request, 'usuarios/dashboard.html')
+        userId = request.user.id
+        receitas = Receita.objects.order_by('-dataCadastro').filter(autor=userId)
+
+        dados = {
+            'receitas': receitas
+        }
+        return render(request, 'usuarios/dashboard.html', dados)
     else:
         return redirect('index')
 
