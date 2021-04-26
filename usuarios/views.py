@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
+from datetime import datetime
+
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
+from receitas.models import Receita
 
 def cadastro(request):
     if request.method == 'POST':
@@ -73,15 +76,22 @@ def criaReceita(request):
         rendimento = request.POST['rendimento']
         categoria = request.POST['categoria']
         img = request.FILES['img']
-        print(f"""
-        nomeReceita: {nomeReceita}
-        ingredientes: {ingredientes}
-        modoPreparo: {modoPreparo}
-        tempoPreparo: {tempoPreparo}
-        rendimento: {rendimento}
-        categoria: {categoria}
-        img: {img}
-    """)
+
+        user = get_object_or_404(User, pk=request.user.id)
+
+        receita = Receita.objects.create(
+            autor=user,
+            nomeReceita=nomeReceita,
+            ingredientes=ingredientes,
+            modoPreparo=modoPreparo,
+            tempoPreparo=tempoPreparo,
+            rendimento=rendimento,
+            categoria=categoria,
+            img=img,
+            dataCadastro=datetime.now()
+            )
+        receita.save()
+
         return redirect('dashboard')
     else:
         return render(request, 'usuarios/criaReceita.html')
