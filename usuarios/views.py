@@ -63,3 +63,6 @@ def dashboard(request):
 def logout(request):
     auth.logout(request)
     return redirect('index')
+
+def criaReceita(request):
+    return render(request, 'usuarios/criaReceita.html')
