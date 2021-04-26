@@ -65,4 +65,23 @@ def logout(request):
     return redirect('index')
 
 def criaReceita(request):
-    return render(request, 'usuarios/criaReceita.html')
+    if request.method == 'POST':
+        nomeReceita = request.POST['nomeReceita']
+        ingredientes = request.POST['ingredientes']
+        modoPreparo = request.POST['modoPreparo']
+        tempoPreparo = request.POST['tempoPreparo']
+        rendimento = request.POST['rendimento']
+        categoria = request.POST['categoria']
+        img = request.FILES['img']
+        print(f"""
+        nomeReceita: {nomeReceita}
+        ingredientes: {ingredientes}
+        modoPreparo: {modoPreparo}
+        tempoPreparo: {tempoPreparo}
+        rendimento: {rendimento}
+        categoria: {categoria}
+        img: {img}
+    """)
+        return redirect('dashboard')
+    else:
+        return render(request, 'usuarios/criaReceita.html')
