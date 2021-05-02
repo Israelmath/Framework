@@ -1,12 +1,14 @@
 from datetime import datetime
 
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from receitas.models import Receita
+from django.core.paginator import Paginator
+from apps.receitas.models import Receita
 from django.contrib.auth.models import User
 
 
 def index(request):
+    """Apresenta todas as receitas de forma paginada"""
+
     receitas = Receita.objects.order_by('-dataCadastro').filter(publicada=True)
     paginacao = Paginator(receitas, 3)
     curPage = request.GET.get('page')
@@ -18,6 +20,7 @@ def index(request):
     return render(request, 'receitas/index.html', context=dados)
 
 def receita(request, receita_id):
+    """Redireciona para a página da receita desejada"""
     receita = get_object_or_404(Receita, pk=receita_id)
 
     receitaAExibir = {
