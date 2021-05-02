@@ -111,3 +111,19 @@ def editaReceita(request, receita_id):
     receita = get_object_or_404(Receita, pk=receita_id)
     receitaAEditar = {'receita': receita}
     return render(request, 'usuarios/editareceita.html', receitaAEditar)
+
+def atualizaReceita(request):
+    if request.method == 'POST':
+        receitaId = request.POST['receita_id']
+        receita = Receita.objects.get(pk=receitaId)
+        receita.nomeReceita = request.POST['nomeReceita']
+        receita.ingredientes = request.POST['ingredientes']
+        receita.modoPreparo = request.POST['modoPreparo']
+        receita.tempoPreparo = request.POST['tempoPreparo']
+        receita.rendimento = request.POST['rendimento']
+        receita.categoria = request.POST['categoria']
+        if 'img' in request.FILES:
+            receita.img = request.FILES['img']
+        receita.save()
+
+    return redirect('dashboard')
