@@ -13,25 +13,23 @@ def cadastro(request):
         senha2 = request.POST['password2']
 
         if not nome.strip():
-            print('O campo nome não pode ficar em branco.')
+            messages.error(request, 'O campo nome não pode ficar em branco.')
             return redirect('cadastro')
 
         if not email.strip():
-            print('O campo email não pode ficar em branco.')
+            messages.error('O campo email não pode ficar em branco.')
             return redirect('cadastro')
 
         if senha != senha2:
             messages.error(request, 'As senhas não são iguais.')
-            print('As senhas não são iguais.')
             return redirect('cadastro')
 
         if User.objects.filter(email=email).exists():
-            print('Usuário já cadastrado.')
+            messages.error(request, 'Usuário já cadastrado.')
         else:
             user = User.objects.create_user(username=nome, email=email, password=senha)
             user.save()
             messages.success(request, 'Usuário cadastrado com sucesso!')
-            print('Usuário cadastrado com sucesso!')
 
         return redirect('login')
     else:
@@ -103,3 +101,9 @@ def criaReceita(request):
         return redirect('dashboard')
     else:
         return render(request, 'usuarios/criaReceita.html')
+
+def deletaReceita(request, receita_id):
+    receita = get_object_or_404(Receita, pk=receita_id)
+    receita.delete()
+    return redirect('dashboard')  
+    

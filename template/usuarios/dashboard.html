@@ -43,6 +43,7 @@
                             <a href="{% url 'receita' receita.id %}">
                                 <h5>{{ receita.nomeReceita }}</h5>
                             </a>
+                            <a href="{% url 'deletaReceita' receita.id %}" type="button" class="btn btn-danger">Deletar</a>
 
                         </div>
                     </div>
