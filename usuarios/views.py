@@ -105,5 +105,9 @@ def criaReceita(request):
 def deletaReceita(request, receita_id):
     receita = get_object_or_404(Receita, pk=receita_id)
     receita.delete()
-    return redirect('dashboard')  
-    
+    return redirect('dashboard')
+
+def editaReceita(request, receita_id):
+    receita = get_object_or_404(Receita, pk=receita_id)
+    receitaAEditar = {'receita': receita}
+    return render(request, 'usuarios/editareceita.html', receitaAEditar)
