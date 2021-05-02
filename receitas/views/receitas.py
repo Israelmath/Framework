@@ -1,12 +1,11 @@
 from datetime import datetime
 
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
-from .models import Receita
+from receitas.models import Receita
 from django.contrib.auth.models import User
 
 
 def index(request):
-
     receitas = Receita.objects.order_by('-dataCadastro').filter(publicada=True)
 
     dados = {
@@ -21,22 +20,6 @@ def receita(request, receita_id):
         'receita': receita
     }
     return render(request, 'receita.html', receitaAExibir)
-
-def buscar(request):
-    listaReceitas = Receita.objects.order_by('-dataCadastro').filter(publicada=True)
-
-    if 'buscar' in request.GET:
-        nomeABuscar = request.GET['buscar']
-        if buscar:
-            listaReceitas = listaReceitas.filter(nomeReceita__icontains=nomeABuscar)
-
-    dados = {
-        'receitas': listaReceitas
-    }
-    if len(dados) == 0:
-        index(request)
-    else:
-        return render(request, 'buscar.html', context=dados)
 
 def criaReceita(request):
     if request.method == 'POST':
